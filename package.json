@@ -1,0 +1,15 @@
+{
+  "name": "underbarfunctions",
+  "version": "1.0.0",
+  "description": "This is a library re-implementing some common tools used by programmers to make programming easier. In this excercise, you're going to be 're-inventing the wheel' somewhat, as many of these functions are now built into the core Javascript library, and others are available via third party libraries, specifically, underscore and lodash.  By re-implementing these functions, you get a better understanding of how to use functions, functions-inside-of-functions, functions-returned-from-functions... by the end of it, you can better understand how higher-order-functions work, and why they make Javascript such a powerful language. ",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "javascript",
+    "beginner"
+  ],
+  "author": "Kerry Ann Boyko",
+  "license": "MIT"
+}
