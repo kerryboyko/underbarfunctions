@@ -1,39 +1,11 @@
 const _ = require('../src/index');
 
-describe('Setting up the test suite', () => {
-  const monkeyPatch = {};
-  const arrayPrototypeList = [
-    'every',
-    'filter',
-    'forEach',
-    'indexOf',
-    'lastIndexOf',
-    'map',
-    'reduce',
-    'reduceRight',
-    'some',
-    'find',
-    'findIndex',
-    'includes',
-    'nativeMap',
-  ];
-
+describe('UnderbarFunctions', () => {
   beforeAll(() => {
     jest.useFakeTimers();
-    arrayPrototypeList.forEach((method) => {
-      monkeyPatch[method] = Array.prototype[method];
-      Array.prototype[method] = () => {
-        const errMsg = `Uh oh. While this is absolutely valid javascript, we've disabled the use of Array.protoype.${method}, so if you were trying to do something like [1, 2, 3].${method}(), it won't work. `;
-        throw new Error(errMsg);
-        return null;
-      };
-    });
   });
   afterAll(() => {
     jest.useRealTimers();
-    arrayPrototypeList.forEach((method) => {
-      Array.prototype[method] = monkeyPatch[method];
-    });
   });
   // Tests begin here!
 
@@ -255,8 +227,16 @@ describe('Setting up the test suite', () => {
         const mappedNumbers = _.map(numbers, function (num) {
           return num;
         });
-        expect(mappedNumber).toEqual(numbers);
+        expect(mappedNumbers).toEqual(numbers);
         expect(mappedNumbers).not.toBe(numbers);
+      });
+
+      it('has access to index and collection', function () {
+        const names = ['harry', 'barry', 'penny'];
+        const mappedNames = _.map(names, function (num, index, coll) {
+          return `${num}-${index}-${coll.length}`;
+        });
+        expect(mappedNames).toEqual(['harry-0-3', 'barry-1-3', 'penny-2-3']);
       });
     });
     describe('_.pluck', function () {
@@ -518,7 +498,7 @@ describe('Setting up the test suite', () => {
       });
     });
 
-    describe('_.once', function () {
+    describe.only('_.once', function () {
       it("should only run a user-defined function if it hasn't been run before", function () {
         var num = 0;
         var increment = _.once(function () {

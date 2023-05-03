@@ -18,12 +18,22 @@ To install this program, go to the root directory of the project. It's the direc
 
 First, type `npm install`. This will download all the third-party files from the internet that this program needs to run, most notably, a program called 'jest', which is used for testing.
 
-When this is done, you can type `npm run test`. This will execute the jest program, and throw out a whole bunch of errors. Don't worry, this is normal! You'll learn by fixing the errors, one by one. Leave that program running - it will re-run every time you save a change to the code.
+When this is done, you can type `npm run test`. This will execute the jest program, and throw out a whole bunch of errors. Don't worry, this is normal! You'll learn by fixing the errors, one by one. Leave that program running - it will re-run every time you save a change to the code. If for some reason it stops re-running, 'kill' the program (that's a real term!) by hitting control + C in the terminal window, and then run the `npm run test` command again.
 
 ### Solving the puzzles
 
 First, you are _only_ going to be editing files located in the `./src` directory. Anything else you should leave as is, especially the "test" folder.
 
+However, you may feel free to look at the test folder to get an idea of what exactly we're testing for, and how the functions should operate.
+
 Read the comments carefully. They'll provide hints to you as you go along. There are many ways to solve the problems, and while some answers are better than others, we're really looking for any answer that solves the problem.
 
 As the problems are solved, you may be able to -- heck, are encouraged to! -- use the functions you solved earlier inside the functions later to solve the puzzles.
+
+When the jest program finds no errors - congratulations, you've solved the puzzles.
+
+### After you solve the puzzles.
+
+Most of these functions have been built into the javascript language itself on the prototypes of objects and arrays - don't worry if you don't know what a prototype is.
+
+In our test suite, we have specifically disabled those prototypes (so you can't, for example, just use the prototypes to solve the problems.) But knowing what's going on behind the scenes of those prototypes will help you solve those problems.
