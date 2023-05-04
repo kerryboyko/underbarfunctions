@@ -467,6 +467,121 @@ _.defaults = function (obj) {
   return obj;
 };
 
+/**
+ * once
+ * This function should return a function that only runs -once-.
+ * That is, no matter how many times it is called, it will only
+ * run one and exactly one time.
+ * @param {Function} fn
+ * @returns {Function}
+ */
+_.once = function (fn) {
+  let flag = false;
+  return (...args) => {
+    if (!flag) {
+      fn(...args);
+      flag = true;
+    }
+  };
+};
+
+/**
+ * memoize
+ * This function is extremely useful when you have a function that
+ * takes a long time to calculate.
+ *
+ * Memorize an expensive function's results by storing them.
+ * memoize could be renamed to oncePerUniqueArgumentList; memoize does the
+ * same thing as once, but based on many sets of unique arguments.
+ *
+ * _.memoize should return a function that, when called, will check if it has
+ * already computed the result for the given argument and return that value
+ * instead if possible.
+ *
+ * Something that might be helpful here is that you can turn almost anything
+ * (unless it has a circular reference) into a string with JSON.stringify();
+ * @param {Function} fn
+ *   @function fn will have
+ *   @params {...any}
+ *   @returns {any}
+ * @returns {Function}
+ *   @function returned will have
+ *   @params {...any}
+ *   @returns {any}
+ */
+_.memoize = function (fn) {
+  const store = {};
+  return (...args) => {
+    const stringArgs = JSON.stringify(args);
+    if (!store[stringArgs]) {
+      store[stringArgs] = fn(...args);
+    }
+    return store[stringArgs];
+  };
+};
+
+/**
+ * delay
+ * Delay delays the execution of a function until after a set period of time
+ * (in milliseconds) is passed.
+ *
+ * @param {function} fn
+ *   @function fn will have
+ *     @param {...any} ...rest - optional
+ *     @returns {void} -- no return value.
+ * @param {number} waitTime - time in milliseconds to delay execution
+ * @param {...any} ...rest - optional. Additional params will be passed the function fn
+ * @returns {void} -- no return value.
+ * @sideEffect - the param will execute fn(...rest) after the delay time.
+ */
+_.delay = function (fn, waitTime, ...args) {
+  setTimeout(() => {
+    fn(...args);
+  }, waitTime);
+};
+
+/**
+ * shuffle
+ * shuffle takes an array, *does not modify* the original array,
+ * and returns an array with the value shuffled (like a deck of cards)
+ *
+ * Try to come up with a solution on your own.
+ *
+ * Two useful functions may be:
+ *   Math.random() - returns a random number from 0 to 1 (like 0.38138740)
+ *   Math.floor() - rounds *DOWN* a decimal to the nearest integer.
+ *
+ * After you come up with your solution (or if you get stuck)
+ * look at this wikipedia page for more information and try
+ * to impliment a "Fisher-Yates shuffle".
+ *
+ * https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+ *
+ * Note that the Fisher-Yates shuffler *will* modify an array in place,
+ * so you'll have to do a slight modification.
+ * @param {Array<any>} unshuffled - Do Not Change/Mutate!
+ * @returns {Array<any>}
+ */
+_.shuffle = function (unshuffled) {
+  const clone = [...unshuffled]; // unshuffled.slice() also works!
+  const l = clone.length;
+  for (let i = 0; i < l; i++) {
+    let r = Math.floor(Math.random() * l);
+    let temp = clone[i];
+    clone[i] = clone[r];
+    clone[r] = temp;
+  }
+  return clone;
+};
+
+/* #### PART THREE #### */
+
+/* Part three *is* trickier than parts one and two, but by now, you should
+   be getting the hang of this.  
+   If you have difficulty with this - try to find someone else learning
+   JS and collaborate on it.  
+*/
+
 /* DO NOT CHANGE ANYTHING BETWEEN THIS LINE AND THE ONE BELOW */
 module.exports = _;
 /* DO NOT CHANGE ANYTHING ABOVE THIS LINE. */

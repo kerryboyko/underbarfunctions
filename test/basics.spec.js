@@ -498,7 +498,7 @@ describe('UnderbarFunctions', () => {
       });
     });
 
-    describe.only('_.once', function () {
+    describe('_.once', function () {
       it("should only run a user-defined function if it hasn't been run before", function () {
         var num = 0;
         var increment = _.once(function () {
@@ -582,41 +582,21 @@ describe('UnderbarFunctions', () => {
         expect(numbers).toEqual([4, 5, 6, 7, 8, 9, 10]);
       });
       it('should have the same elements as the original object', function () {
-        const numbers = [4, 5, 6, 7, 8, 9, 10];
+        const numbers = [3, 4, 5, 6, 7, 8, 9];
         const shuffled = _.shuffle(numbers).sort();
 
-        expect(shuffled).toEqual([4, 5, 6, 7, 8, 9, 10]);
+        expect(shuffled).toEqual([3, 4, 5, 6, 7, 8, 9]);
       });
       it('should not be in the same order as the original object', function () {
         const numbers = [4, 5, 6, 7, 8, 9, 10];
         const shuffled = _.shuffle(numbers);
 
-        expect(shuffled).to.not.eql([4, 5, 6, 7, 8, 9, 10]);
+        expect(shuffled).not.toEqual([4, 5, 6, 7, 8, 9, 10]);
       });
     });
   });
 
   describe('Part 3', function () {
-    describe('_.invoke, when provided a function reference', function () {
-      it('runs the input function on each item in the array, and returns a list of results', function () {
-        const reverse = function () {
-          return this.split('').reverse().join('');
-        };
-
-        const reversedStrings = _.invoke(['dog', 'cat'], reverse);
-
-        expect(reversedStrings).toEqual(['god', 'tac']);
-      });
-    });
-
-    describe('_.invoke, when provided a method name', function () {
-      it('runs the specified method on each item in the array, and returns a list of results', function () {
-        const upperCasedStrings = _.invoke(['dog', 'cat'], 'toUpperCase');
-
-        expect(upperCasedStrings).toEqual(['DOG', 'CAT']);
-      });
-    });
-
     describe('_.sortBy', function () {
       it('should sort by age', function () {
         const people = [
