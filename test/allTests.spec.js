@@ -670,7 +670,7 @@ describe('UnderbarFunctions', () => {
       });
     });
 
-    describe.only('_.zip', function () {
+    describe('_.zip', function () {
       it('should zip together arrays of different lengths', function () {
         const names = ['moe', 'larry', 'curly'],
           ages = [30, 40, 50],
@@ -690,6 +690,15 @@ describe('UnderbarFunctions', () => {
         const leaders = ['moe', 'groucho'];
 
         expect(_.intersection(stooges, leaders)).toEqual(['moe']);
+      });
+      it('should take the set intersection of more than two arrays', function () {
+        const stooges = ['moe', 'curly', 'larry'];
+        const leaders = ['moe', 'groucho'];
+        const simpsonsChars = ['moe', 'homer', 'curly'];
+
+        expect(_.intersection(stooges, leaders, simpsonsChars)).toEqual([
+          'moe',
+        ]);
       });
     });
 
@@ -716,6 +725,20 @@ describe('UnderbarFunctions', () => {
         setTimeout(fn, 100); // should call again.
         setTimeout(fn, 150); // should not call
         setTimeout(fn, 199); // should not call
+        jest.advanceTimersByTime(200);
+
+        expect(callback).toHaveBeenCalledTimes(2);
+      });
+      it('should return a function should work with parameters', function () {
+        const square = (x) => x * x;
+        const callback = jest.fn(square);
+        const fn = _.throttle(callback, 100);
+        const answer = fn(2); // called
+        expect(answer).toBe(4);
+        setTimeout(() => fn(3), 50); // should not call.
+        setTimeout(() => fn(4), 100); // should call again.
+        setTimeout(() => fn(5), 150); // should not call
+        setTimeout(() => fn(6), 199); // should not call
         jest.advanceTimersByTime(200);
 
         expect(callback).toHaveBeenCalledTimes(2);

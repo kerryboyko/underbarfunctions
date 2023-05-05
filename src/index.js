@@ -647,6 +647,154 @@ _.flatten = function (nestedArray) {
   return output;
 };
 
+/**
+ * zip
+ * This function should zip together arrays into an array of arrays,
+ * such that each array index is paired with the other values of that index.
+ *
+ * For example,
+ * const names = ['moe', 'larry', 'curly'];
+ * const ages = [30, 40, 50]
+ * const leaders = [true];
+ *
+ *  _.zip(names, ages, leaders);
+ *
+ * // should return [
+ * //  ['moe', 30, true],
+ * //  ['larry', 40, undefined],
+ * //  ['curly', 50, undefined],
+ * // ]
+ *
+ * Notice that we'll be using the spread notation here to handle
+ * the arguments.
+ *
+ * Look up Spread Syntax:
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+ *
+ * In practice, what this means is that if you list your function as:
+ * function example (...params) {
+ *   console.log(params);
+ * }
+ *
+ * then the parameters passed in will be treated as an array of parameters.  So:
+ *
+ * example(1) => // logs [1];
+ * example('bill', 'ted') // => logs ['bill', 'ted'];
+ * example('moe', 'larry', 'curly') => logs ['moe', 'larry', 'curly'];
+ *
+ * Like any array, this can be iterated over.
+ *
+ * @param {...Array<any>} arrays -- Arrays to zip - can be any number of arrays.
+ * @returns {Array<Array<any>>}
+ */
+
+_.zip = function (...arrays) {
+  const maxLength = Math.max(..._.map(arrays, (array) => array.length));
+  const output = [];
+  for (let i = 0; i < maxLength; i++) {
+    const temp = [];
+    for (let arr of arrays) {
+      temp.push(arr[i]);
+    }
+    output.push(temp);
+  }
+  return output;
+};
+
+/**
+ * intersection
+ * This function takes two or more arrays, and only returns those elements
+ * that are common to all the arrays passed in as parameters.
+ * @param  {...Array<any>} arrays
+ * @returns {Array<any>}
+ */
+_.intersection = function (...arrays) {
+  if (arrays.length === 0) {
+    return [];
+  } else if (arrays.length === 1) {
+    return arrays[0];
+  }
+  return _.filter(arrays[0], (element) =>
+    _.every(arrays.slice(1), (restArray) => restArray.includes(element))
+  );
+};
+
+/**
+ * difference
+ * This function takes two or more arrays, and only returns those elements
+ * of the first array that are NOT found in the other arrays.
+ *
+ * For example,
+ *
+ * _.difference([1, 2, 3, 4], [2, 30, 40], [1, 11, 111]);
+ * // should return
+ * [3, 4]
+ *
+ * @param {Array<any>} sourceArray
+ * @param {...Array<any>} differenceArrays
+ * @returns {Array<any>}
+ */
+_.difference = function (sourceArray, ...differenceArrays) {
+  if (differenceArrays.length === 0) {
+    return sourceArray;
+  }
+  return _.filter(sourceArray, (elem) => {
+    return _.every(differenceArrays, (diffArray) => !diffArray.includes(elem));
+  });
+};
+
+/**
+ * throttle
+ * This function takes a callback function, and a number, throttleTime.
+ * It and returns a function that willcall the callback function - but ONLY once per every
+ * throttle time.
+ *
+ * For example, if this is the callback:
+ *
+ * let count = 0;
+ * function increment(){
+ *   count++
+ * }
+ *
+ * const throttledIncrement _.throttle(increment, 1000);
+ *
+ * // then calling throttledIncrement() will only execute every 1000 seconds.
+ * So if you tied throttledIncrement to a button on a webpage:
+ *
+ * [initial press]
+ *   throttledIncrement(); // count = 1;
+ * [pressed again after 1/2 second]
+ *   throttledIncrement(); // count = 1;
+ * [pressed again 1/2 second after that]
+ *   throttledIncrement(); // count = 2;
+ * [pressed three times 1/4 second after that];
+ *   throttledIncrement(); // count = 2;
+ *   throttledIncrement(); // count = 2;
+ *   throttledIncrement(); // count = 2;
+ * [pressed again 1 second after that]
+ *   throttledIncrement(); // count = 3;
+ *
+ * @param {Function} callback
+ *   @function callback will have
+ *     @param {...any} -- any parameters
+ *     @returns {void} -- no return.
+ * @param {number} throttleTime - time in milliseconds to throttle.
+ * @returns {Function}
+ */
+_.throttle = function (callback, throttleTime) {
+  let timeout = null;
+  let flag = false;
+  return (...params) => {
+    if (!timeout || !flag) {
+      flag = true;
+      timeout = setTimeout(() => {
+        flag = false;
+      }, throttleTime);
+      return callback(...params);
+    }
+  };
+};
+
 /* DO NOT CHANGE ANYTHING BETWEEN THIS LINE AND THE ONE BELOW */
 module.exports = _;
 /* DO NOT CHANGE ANYTHING ABOVE THIS LINE. */
