@@ -31,14 +31,7 @@ _.identity = function (val) {
  * @returns {any | Array<any>} (returns either a single element of the array or a subset of elements)
  */
 _.first = function (array, n) {
-  if (n === undefined) {
-    return array[0];
-  }
-  const output = [];
-  for (let i = 0; i < n; i++) {
-    output.push(array[i]);
-  }
-  return output;
+  // Write the function here.
 };
 
 /**
@@ -53,20 +46,7 @@ _.first = function (array, n) {
  * @returns {any | Array<any>} (returns either a single element of the array or a subset of elements)
  */
 _.last = function (array, n) {
-  const l = array.length;
-  if (n === undefined) {
-    return array[l - 1];
-  } else if (n >= l) {
-    return array;
-  } else if (n === 0) {
-    return [];
-  } else {
-    const output = [];
-    for (let i = l - n; i < l; i++) {
-      output.push(array[i]);
-    }
-    return output;
-  }
+  // Write the function here.
 };
 
 /**
@@ -98,15 +78,7 @@ _.last = function (array, n) {
  *
  */
 _.each = function (collection, fn) {
-  if (Array.isArray(collection)) {
-    for (let i = 0, l = collection.length; i < l; i++) {
-      fn(collection[i], i, collection);
-    }
-  } else {
-    for (let key in collection) {
-      fn(collection[key], key, collection);
-    }
-  }
+  // Write the function here.
 };
 
 /**
@@ -120,12 +92,7 @@ _.each = function (collection, fn) {
  * @returns {number}
  */
 _.indexOf = function (collection, testElement) {
-  for (let i = 0, l = collection.length; i < l; i++) {
-    if (collection[i] === testElement) {
-      return i;
-    }
-  }
-  return -1;
+  // Write the function here.
 };
 
 /**
@@ -143,13 +110,7 @@ _.indexOf = function (collection, testElement) {
  * HINT: You don't have to, but you can re-use _.each here!
  */
 _.filter = function (collection, test) {
-  let passed = [];
-  _.each(collection, (element) => {
-    if (test(element)) {
-      passed.push(element);
-    }
-  });
-  return passed;
+  // Write the function here.
 };
 
 /**
@@ -168,7 +129,7 @@ _.filter = function (collection, test) {
  * HINT: You don't have to, but you can re-use _.filter here!
  */
 _.reject = function (collection, test) {
-  return _.filter(collection, (element) => !test(element));
+  // Write the function here.
 };
 
 /**
@@ -188,14 +149,7 @@ _.reject = function (collection, test) {
  * You can also re-use _.filter here if you're clever.
  */
 _.uniq = function (collection) {
-  const store = {};
-  return _.filter(collection, (element) => {
-    if (store[element] === undefined) {
-      store[element] = element;
-      return true;
-    }
-    return false;
-  });
+  // Write the function here.
 };
 
 /**
@@ -228,11 +182,7 @@ _.uniq = function (collection) {
  *
  */
 _.map = function (collection, fn) {
-  const output = [];
-  for (let i = 0, l = collection.length; i < l; i++) {
-    output.push(fn(collection[i], i, collection));
-  }
-  return output;
+  // Write the function here.
 };
 
 /**
@@ -259,7 +209,7 @@ _.map = function (collection, fn) {
  * Hint: You don't have to, but you can re-use _.map() here.
  */
 _.pluck = function (collection, key) {
-  return _.map(collection, (element) => element[key]);
+  // Write the function here.
 };
 
 /**
@@ -297,11 +247,7 @@ _.pluck = function (collection, key) {
  * @returns {any}
  */
 _.reduce = function (collection, fn, initialValue) {
-  let accum = initialValue === undefined ? collection.shift() : initialValue;
-  _.each(collection, (elem, i, coll) => {
-    accum = fn(accum, elem, i, coll);
-  });
-  return accum;
+  // Write the function here.
 };
 
 /* #### PART TWO #### */
@@ -325,12 +271,7 @@ around.  Good luck! */
  *
  */
 _.contains = function (collection, elem) {
-  for (let key in collection) {
-    if (elem === collection[key]) {
-      return true;
-    }
-  }
-  return false;
+  // Write the function here.
 };
 
 /**
@@ -349,13 +290,7 @@ _.contains = function (collection, elem) {
  * efficient way to solve the problem.
  */
 _.every = function (collection, testFn) {
-  testFn = testFn || _.identity;
-  for (let i = 0, l = collection.length; i < l; i++) {
-    if (!testFn(collection[i])) {
-      return false;
-    }
-  }
-  return true;
+  // Write the function here.
 };
 
 /**
@@ -371,8 +306,7 @@ _.every = function (collection, testFn) {
  * Hint: You can re-use _.every here.
  */
 _.some = function (collection, testFn) {
-  testFn = testFn || _.identity;
-  return !_.every(collection, (element) => !testFn(element));
+  // Write the function here.
 };
 
 /**
@@ -422,14 +356,10 @@ _.some = function (collection, testFn) {
  */
 _.extend = function (obj) {
   const args = Array.from(arguments);
+  // args will be an array with obj being the first element, and other parameters
+  // passed in to fill out the rest of the array.
 
-  // note we skip over the first argument - obj.
-  for (let i = 1, l = args.length; i < l; i++) {
-    for (let key in args[i]) {
-      obj[key] = args[i][key];
-    }
-  }
-  return obj;
+  // Write the rest of the function here.
 };
 
 /**
@@ -442,17 +372,9 @@ _.extend = function (obj) {
  *   same object we pass as first param.
  */
 _.defaults = function (obj) {
-  const args = Array.from(arguments);
-
-  // note we skip over the first argument - obj.
-  for (let i = 1, l = args.length; i < l; i++) {
-    for (let key in args[i]) {
-      if (obj[key] === undefined) {
-        obj[key] = args[i][key];
-      }
-    }
-  }
-  return obj;
+  // args will be an array with obj being the first element, and other parameters
+  // passed in to fill out the rest of the array.
+  // Write the rest of the function here.
 };
 
 /**
@@ -464,13 +386,7 @@ _.defaults = function (obj) {
  * @returns {Function}
  */
 _.once = function (fn) {
-  let flag = false;
-  return (...args) => {
-    if (!flag) {
-      fn(...args);
-      flag = true;
-    }
-  };
+  // Write the function here.
 };
 
 /**
@@ -498,14 +414,7 @@ _.once = function (fn) {
  *   @returns {any}
  */
 _.memoize = function (fn) {
-  const store = {};
-  return (...args) => {
-    const stringArgs = JSON.stringify(args);
-    if (!store[stringArgs]) {
-      store[stringArgs] = fn(...args);
-    }
-    return store[stringArgs];
-  };
+  // Write the function here.
 };
 
 /**
@@ -523,9 +432,9 @@ _.memoize = function (fn) {
  * @sideEffect - the param will execute fn(...rest) after the delay time.
  */
 _.delay = function (fn, waitTime, ...args) {
-  setTimeout(() => {
-    fn(...args);
-  }, waitTime);
+  // args will be an array of the third argument - if it exists - followed by every other argument.
+  // so if you called _.delay(() => foo, 100, 1, 2), args would be [1, 2];
+  // Write the function here.
 };
 
 /**
@@ -551,15 +460,7 @@ _.delay = function (fn, waitTime, ...args) {
  * @returns {Array<any>}
  */
 _.shuffle = function (unshuffled) {
-  const clone = [...unshuffled]; // unshuffled.slice() also works!
-  const l = clone.length;
-  for (let i = 0; i < l; i++) {
-    let r = Math.floor(Math.random() * l);
-    let temp = clone[i];
-    clone[i] = clone[r];
-    clone[r] = temp;
-  }
-  return clone;
+  // Write the function here.
 };
 
 /* #### PART THREE #### */
@@ -602,15 +503,7 @@ _.shuffle = function (unshuffled) {
  * @returns {Array<any>}
  */
 _.sortBy = function (collection, sortCriteria) {
-  if (typeof sortCriteria === 'function') {
-    return [...collection].sort((a, b) =>
-      sortCriteria(a) < sortCriteria(b) ? -1 : 1
-    );
-  } else {
-    return [...collection].sort((a, b) =>
-      a[sortCriteria] < b[sortCriteria] ? -1 : 1
-    );
-  }
+  // Write the function here.
 };
 
 /**
@@ -634,17 +527,7 @@ _.sortBy = function (collection, sortCriteria) {
  * @returns {Array<any>}
  */
 _.flatten = function (nestedArray) {
-  const output = [];
-  const clone = [...nestedArray];
-  while (clone.length) {
-    const element = clone.shift();
-    if (Array.isArray(element)) {
-      output.push(..._.flatten(element));
-    } else {
-      output.push(element);
-    }
-  }
-  return output;
+  // Write the function here.
 };
 
 /**
@@ -689,16 +572,7 @@ _.flatten = function (nestedArray) {
  */
 
 _.zip = function (...arrays) {
-  const maxLength = Math.max(..._.map(arrays, (array) => array.length));
-  const output = [];
-  for (let i = 0; i < maxLength; i++) {
-    const temp = [];
-    for (let arr of arrays) {
-      temp.push(arr[i]);
-    }
-    output.push(temp);
-  }
-  return output;
+  // Write the function here.
 };
 
 /**
@@ -709,14 +583,7 @@ _.zip = function (...arrays) {
  * @returns {Array<any>}
  */
 _.intersection = function (...arrays) {
-  if (arrays.length === 0) {
-    return [];
-  } else if (arrays.length === 1) {
-    return arrays[0];
-  }
-  return _.filter(arrays[0], (element) =>
-    _.every(arrays.slice(1), (restArray) => restArray.includes(element))
-  );
+  // Write the function here.
 };
 
 /**
@@ -735,12 +602,7 @@ _.intersection = function (...arrays) {
  * @returns {Array<any>}
  */
 _.difference = function (sourceArray, ...differenceArrays) {
-  if (differenceArrays.length === 0) {
-    return sourceArray;
-  }
-  return _.filter(sourceArray, (elem) => {
-    return _.every(differenceArrays, (diffArray) => !diffArray.includes(elem));
-  });
+  // Write the function here.
 };
 
 /**
@@ -782,17 +644,7 @@ _.difference = function (sourceArray, ...differenceArrays) {
  * @returns {Function}
  */
 _.throttle = function (callback, throttleTime) {
-  let timeout = null;
-  let flag = false;
-  return (...params) => {
-    if (!timeout || !flag) {
-      flag = true;
-      timeout = setTimeout(() => {
-        flag = false;
-      }, throttleTime);
-      return callback(...params);
-    }
-  };
+  // Write the function here.
 };
 
 /* DO NOT CHANGE ANYTHING BETWEEN THIS LINE AND THE ONE BELOW */
