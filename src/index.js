@@ -5,26 +5,14 @@ const _ = {};
 /* #### PART ONE #### */
 
 /**
- * // What does {T} mean?
- * // well, inside the brackets, we'll be putting the type that the function will
- * // take as parameters and returns them.
- * // T is a way of saying 'any type will work' - the only difference between:
- * // {T} and {any} is that if the parameter is any, and it returns any, then it's possible
- * // that the parameter and the return will be of differen types.
- * // Here, by using {T}, we know that val can be any type, but the function will
- * // return whatever type val is.
- * // These are all comments anyway, a format known as jsDoc, and they are
- * // completely optional. Typescript is a better way to deal with documenting
- * // types, but this will work for now.
- *
  * This test is solved for you.
  *
  * identity
  * Returns whatever value is passed as the argument. This function doesn't
  * seem very useful, but remember it--if a function needs to provide an
  * iterator when the user does not pass one in, this will be handy.
- * @param {T} val
- * @returns {T}
+ * @param {any} val
+ * @returns {any}
  *
  */
 _.identity = function (val) {
@@ -38,9 +26,9 @@ _.identity = function (val) {
  * n elements of that array in a new array.
  * If n is 0, return an empty array.
  * If n is larger than the length of the array, return all the array's elements.
- * @param {Array<T>} array
+ * @param {Array<any>} array
  * @param {number} n
- * @returns {T | Array<T>} (returns either a single element of the array or a subset of elements)
+ * @returns {any | Array<any>} (returns either a single element of the array or a subset of elements)
  */
 _.first = function (array, n) {
   if (n === undefined) {
@@ -60,9 +48,9 @@ _.first = function (array, n) {
  * n elements of that array in a new array.
  * If n is 0, return an empty array.
  * If n is larger than the length of the array, return all the array's elements.
- * @param {Array<T>} array
+ * @param {Array<any>} array
  * @param {number} n
- * @returns {T | Array<T>} (returns either a single element of the array or a subset of elements)
+ * @returns {any | Array<any>} (returns either a single element of the array or a subset of elements)
  */
 _.last = function (array, n) {
   const l = array.length;
@@ -581,6 +569,83 @@ _.shuffle = function (unshuffled) {
    If you have difficulty with this - try to find someone else learning
    JS and collaborate on it.  
 */
+
+/**
+ * This function should sort an array based on an iterator
+ * that will return the property that the array should be sorted by,
+ * then returns the sorted array.
+ *
+ * The iterator can be a function, as below:
+ *
+ * const people = [
+ *   {name: 'curly', age: 50},
+ *   {name: 'moe', age: 30}
+ * ]
+ * const resultFromFunction = _.sortBy(people, function(person){
+ *   return person.age;
+ * })
+ * // result should be [{name: 'moe': age 30}, {name: 'curly': age 50}]
+ *
+ * Or it can be a string:
+ * const resultFromFunction = _.sortBy(people, 'age')
+ *
+ * You can use Array.prototype.sort here, but you will need to read up on it.
+ *
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+ *
+ * @param {Array<any>} collection
+ * @param {Function | string} sortCriteria
+ *   @if sortCriteria is a {Function}
+ *   @function sortCriteria will have
+ *     @param {any} item
+ *     @returns {any}
+ * @returns {Array<any>}
+ */
+_.sortBy = function (collection, sortCriteria) {
+  if (typeof sortCriteria === 'function') {
+    return [...collection].sort((a, b) =>
+      sortCriteria(a) < sortCriteria(b) ? -1 : 1
+    );
+  } else {
+    return [...collection].sort((a, b) =>
+      a[sortCriteria] < b[sortCriteria] ? -1 : 1
+    );
+  }
+};
+
+/**
+ * flatten
+ * This function should flatten a nested array. For example:
+ *
+ *  _.flatten([1, [2], [3, [[[4]]]]]); // => [1, 2, 3, 4]
+ *
+ * Check out Array.isArray()
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray
+ *
+ * You do not have to do it this way - but this is one problem that may be
+ * useful to look up the idea of recursion in computer programming.
+ *
+ * It's a really neat trick where a function can call *itself* in the middle
+ * of it's own execution.
+ *
+ * See https://users.cs.utah.edu/~germain/PPS/Topics/recursion.html
+ *
+ * @param {Array<any>} nestedArray
+ * @returns {Array<any>}
+ */
+_.flatten = function (nestedArray) {
+  const output = [];
+  const clone = [...nestedArray];
+  while (clone.length) {
+    const element = clone.shift();
+    if (Array.isArray(element)) {
+      output.push(..._.flatten(element));
+    } else {
+      output.push(element);
+    }
+  }
+  return output;
+};
 
 /* DO NOT CHANGE ANYTHING BETWEEN THIS LINE AND THE ONE BELOW */
 module.exports = _;

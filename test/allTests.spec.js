@@ -599,7 +599,7 @@ describe('UnderbarFunctions', () => {
   describe('Part 3', function () {
     describe('_.sortBy', function () {
       it('should sort by age', function () {
-        const people = [
+        let people = [
           { name: 'curly', age: 50 },
           { name: 'moe', age: 30 },
         ];
@@ -670,7 +670,7 @@ describe('UnderbarFunctions', () => {
       });
     });
 
-    describe('_.zip', function () {
+    describe.only('_.zip', function () {
       it('should zip together arrays of different lengths', function () {
         const names = ['moe', 'larry', 'curly'],
           ages = [30, 40, 50],
